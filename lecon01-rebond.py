@@ -112,3 +112,4 @@ while True:
     # rien a comprendre 
     # ca met a jour les choses a afficher a l'ecran
     pygame.display.flip()
+    
