@@ -1,7 +1,7 @@
 # on dit a Python qu'on utilise Pygame
 import pygame
 
-#le nombre de FPS, c-a-d d'image par seconde
+#le nombre de FPS, c-a-d d'images par seconde
 Nombre_de_FPS = 50
 
 #on compte toujours les millesecondes
