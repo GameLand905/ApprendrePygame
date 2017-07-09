@@ -8,7 +8,7 @@ import pygame
 # ca s'appelle une 'Classe'  
 class Classe_des_PacBoules(pygame.sprite.Sprite):
     # __init__ est ce qui est fait quand on cree une PacBoule
-    #   self, ca veut dire "moi-meme", ca sert a clairement identifie les informations
+    #   self, ca veut dire "moi-meme", ca sert a clairement identifier les informations
     #       d'une PacBoule par rapport aux autres informations du programme
     def __init__(self, Position_de_depart, Direction_de_depart, Vitesse_de_depart):
         pygame.sprite.Sprite.__init__(self)
@@ -19,8 +19,8 @@ class Classe_des_PacBoules(pygame.sprite.Sprite):
         self.rectangle = self.image.get_rect()
     #     
     #######################################################################
-    # update ca veut dire 'mise a jour' ...
-    # c'est ce qu'il sera fait a chaque image, 50 fois par seconde dans notre cas
+    # 'update' ca veut dire 'mise a jour' ...
+    # c'est ce qui sera fait a chaque image, 50 fois par seconde dans notre cas
     def update(self, Nombre_de_milliseconde_depuis_le_dernier_appel):
         # si la PacBoule touche les bords verticaux
         # alors la direction horizontale change de sens 
@@ -32,11 +32,12 @@ class Classe_des_PacBoules(pygame.sprite.Sprite):
 
         # on calcule le deplacement
         #   on multiple la vitesse par le temps ecoule
-        #   et on multiple la driection par le tout
+        #   et on multiple la direction par le tout
         #   cela nous donne de combien on se deplace    
         Deplacement = self.Direction_actuelle.normalize() * self.Vitesse_Actuelle * Nombre_de_milliseconde_depuis_le_dernier_appel
         
-        #on rajoute le deplacement que l'on vient de calculer a notre position
+        # on rajoute le deplacement que l'on vient de calculer a notre position
+        # et on a la nouvelle position de la PacBoule
         self.Position_actuelle = self.Position_actuelle + Deplacement
 
         # Pas grand chose a comprendre a cette ligne...
@@ -45,24 +46,23 @@ class Classe_des_PacBoules(pygame.sprite.Sprite):
 
 #
 ##########################################################################
-# Dans cette section, il y a des information generales sur le programme
+# Dans cette section, il y a des informations generales sur le programme
 #  
 #le nombre de FPS, c-a-d d'image par seconde
 Nombre_de_FPS = 50
 
-# on compte toujours les millesecondes
-Nombre_de_millisecondes_ecoulee = 0
-
-#les informations sur la fenetre de jeu
+# les informations sur la fenetre de jeu
+#   la couleur du fond de la couleur, du noir car 0 de rouge, 0 de rouge, 0 de bleu
 Couleur_du_fond_RVB = (0,0,0)
+
+#   et la taille de la fenetre en pixels
 Hauteur_de_la_fenetre = 300
 Largeur_de_la_fenetre = 400
+#   (x,y) c'est la facon dont Python stocke les coordonnees
+Taille_de_la_fenetre = (Largeur_de_la_fenetre,Hauteur_de_la_fenetre)
 
 # rien a comprendre, pygame a besoin de cette ligne 
 pygame.init()
-
-# (x,y) c'est la facon dont Python stocke les coordonnees
-Taille_de_la_fenetre = (Largeur_de_la_fenetre,Hauteur_de_la_fenetre)
 
 # c'est la facon dont PyGame creer une fenetre pour l'afficher sur l'ecran
 Fenetre = pygame.display.set_mode(Taille_de_la_fenetre)
@@ -76,7 +76,11 @@ pygame.display.set_caption("une PacBoule")
 #   Tous les programmes PyGame utilise cela 
 Horloge = pygame.time.Clock()
 
-# bah, la... il faut connaitre un peu les maths et les vecteurs
+# on compte toujours les millesecondes ecoulees, donnees par l'Horloge
+Nombre_de_millisecondes_ecoulee = 0
+
+# bah, la... il faut connaitre un peu les maths et les vecteurs...
+#   ca se comprend assez bien avec un dessin
 Position = pygame.math.Vector2(100,100)
 Direction = pygame.math.Vector2(10,10)
 # la vitesse est en nombre de pixel par milliseconde
@@ -84,7 +88,6 @@ Vitesse = .3
 
 # on cree la PacBoule !
 La_boule = Classe_des_PacBoules(Position,Direction,Vitesse)
-
 
 ##########################################################################
 # c'est la boucle d'evenement, qui est infinie sauf si ...
@@ -95,13 +98,13 @@ while True:
     # et retourne le nombre de millisecondes reellement ecoule 
     Nombre_de_millisecondes_ecoulee = Horloge.tick(Nombre_de_FPS)
 
-    # rien a comprendre plus bas pour l'instant
+    # rien a comprendre ici pour l'instant
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             exit_game()
 
     # au fur et a mesure du jeu, il faut effacer l'ecran precedent
-    # 'fill' veut dire remplir
+    # 'fill' veut dire 'remplir'
     # dans notre cas, on remplir d'une couleur uniforme
     Fenetre.fill(Couleur_du_fond_RVB)
 
